@@ -1,8 +1,3 @@
-Sure, here’s a revised `README.md` focused on step-by-step instructions for testing the WebSocket server and client.
-
-### README.md
-
-```markdown
 # Simple Server
 
 This repository contains a simple WebSocket server implemented in Golang that generates unique big integers for each WebSocket connection. A JavaScript client is also provided to connect to the server and receive these unique big integers.
@@ -17,8 +12,8 @@ This repository contains a simple WebSocket server implemented in Golang that ge
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/Simple-Server.git
-cd Simple-Server
+git clone https://github.com/mutobui/go-simple-server.git
+cd go-simple-Server
 ```
 
 ### 2. Install Dependencies
@@ -72,6 +67,3 @@ Open the `websocket_test.html` file in a web browser.
 
 - `server.go`: The Go server code.
 - `websocket_test.html`: The HTML and JavaScript client code.
-```
-
-This version of the `README.md` file provides clear, step-by-step instructions for testing the WebSocket server and client without including the code or license details. Good luck with your interview!# go-simple-server
