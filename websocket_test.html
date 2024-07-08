@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Test</title>
+</head>
+<body>
+    <h1>WebSocket Test</h1>
+    <button id="connectButton">Connect</button>
+    <button id="sendMessageButton" disabled>Send Message</button>
+    <div id="messages"></div>
+
+    <script>
+        let socket;
+        let connectionCount = 0;
+        const messagesDiv = document.getElementById('messages');
+
+        document.getElementById('connectButton').addEventListener('click', function() {
+            connectionCount++;
+            console.log(`Attempting to establish connection ${connectionCount}...`);
+            socket = new WebSocket("ws://localhost:8080/ws");
+
+            socket.onopen = function(event) {
+                console.log(`Connection ${connectionCount} established!`);
+                messagesDiv.innerHTML += `<p>Connection ${connectionCount} established!</p>`;
+                document.getElementById('sendMessageButton').disabled = false;
+            };
+
+            socket.onmessage = function(event) {
+                console.log(`Connection ${connectionCount} received: ${event.data}`);
+                messagesDiv.innerHTML += `<p>Connection ${connectionCount} received: ${event.data}</p>`;
+            };
+
+            socket.onclose = function(event) {
+                console.log(`Connection ${connectionCount} closed: ${event.reason}`);
+                messagesDiv.innerHTML += `<p>Connection ${connectionCount} closed: ${event.reason}</p>`;
+                document.getElementById('sendMessageButton').disabled = true;
+            };
+
+            socket.onerror = function(error) {
+                console.error(`Connection ${connectionCount} error: ${error.message}`);
+                messagesDiv.innerHTML += `<p>Connection ${connectionCount} error: ${error.message}</p>`;
+            };
+        });
+
+        document.getElementById('sendMessageButton').addEventListener('click', function() {
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                console.log(`Sending message from connection ${connectionCount}`);
+                socket.send("Hello Server!");
+            }
+        });
+    </script>
+</body>
+</html>
